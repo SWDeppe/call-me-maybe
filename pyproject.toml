@@ -7,7 +7,12 @@ authors = [
     { email = "swanndeppe1@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = [ "pydantic", "pytest"]
+dependencies = [
+ "llm-sdk",
+ "pydantic",
+ "pytest",
+ "troch",
+]
 
 [project.scripts]
 call-me-maybe = "call_me_maybe:main"
@@ -15,3 +20,11 @@ call-me-maybe = "call_me_maybe:main"
 [build-system]
 requires = ["uv_build>=0.13.5,<0.14.0"]
 build-backend = "uv_build"
+
+[tool.uv.workspace]
+members = [
+    "llm_sdk",
+]
+
+[tool.uv.sources]
+llm-sdk = { workspace = true }
