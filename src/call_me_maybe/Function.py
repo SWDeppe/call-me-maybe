@@ -23,10 +23,15 @@ class Function:
         # state1.value = 7
     name: str
     description: str
-    def __init__(self, name: str, description: str):
+    return_value: str
+    parameters: dict[str, str]
+
+    def __init__(self, name: str, description: str, return_value: str, parameters: dict[str, str]):
         self.name = name
         self.description = description
+        self.parameters = parameters
+        self.return_value = return_value
 
     def __repr__(self) -> str:
         """ This will be feed to the prompte keep it short ! """
-        return f"the function {self.name} do: {self.description}"
+        return f"{self.name}:\n\t\tdescription: {self.description}\n\t\treturn value: {self.return_value}\n\t\tparameters: {self.parameters}"
