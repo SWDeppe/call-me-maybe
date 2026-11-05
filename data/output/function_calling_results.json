@@ -1,0 +1,111 @@
+[
+    {
+        "prompt": "What is the sum of -2 and 3?",
+        "function": "fn_add_numbers",
+        "parameters": {
+            "a": -2.0,
+            "b": 3.0
+        }
+    },
+    {
+        "prompt": "What is the sum of -2 and -3?",
+        "function": "fn_add_numbers",
+        "parameters": {
+            "a": -2.0,
+            "b": -3.0
+        }
+    },
+    {
+        "prompt": "What is the sum of -265.55 and -79.89?",
+        "function": "fn_add_numbers",
+        "parameters": {
+            "a": -265.55,
+            "b": -79.89
+        }
+    },
+    {
+        "prompt": "What is the sum of 2 and -3?",
+        "function": "fn_add_numbers",
+        "parameters": {
+            "a": 2.0,
+            "b": -3.0
+        }
+    },
+    {
+        "prompt": "What is the sum of 265.55 and 345?",
+        "function": "fn_add_numbers",
+        "parameters": {
+            "a": 265.55,
+            "b": 345.0
+        }
+    },
+    {
+        "prompt": "Greet shrek",
+        "function": "fn_greet",
+        "parameters": {
+            "name": "shrek"
+        }
+    },
+    {
+        "prompt": "Greet john",
+        "function": "fn_greet",
+        "parameters": {
+            "name": "john"
+        }
+    },
+    {
+        "prompt": "Reverse the string 'hello'",
+        "function": "fn_reverse_string",
+        "parameters": {
+            "s": "hello"
+        }
+    },
+    {
+        "prompt": "Reverse the string 'world'",
+        "function": "fn_reverse_string",
+        "parameters": {
+            "s": "world"
+        }
+    },
+    {
+        "prompt": "What is the square root of 16?",
+        "function": "fn_get_square_root",
+        "parameters": {
+            "a": 16.0
+        }
+    },
+    {
+        "prompt": "Calculate the square root of 144",
+        "function": "fn_get_square_root",
+        "parameters": {
+            "a": 144.0
+        }
+    },
+    {
+        "prompt": "Replace all numbers in \"Hello 34 I'm 233 years old\" with NUMBERS",
+        "function": "fn_substitute_string_with_regex",
+        "parameters": {
+            "source_string": "Hello 34 I'm 233 years old",
+            "regex": "34|233",
+            "replacement": "NUMBERS"
+        }
+    },
+    {
+        "prompt": "Replace all vowels in 'Programming is fun' with asterisks",
+        "function": "fn_substitute_string_with_regex",
+        "parameters": {
+            "source_string": "Programming is fun",
+            "regex": "[aeiouAEIOU]",
+            "replacement": "*"
+        }
+    },
+    {
+        "prompt": "Substitute the word 'cat' with 'dog' in 'The cat sat on the mat with another cat'",
+        "function": "fn_substitute_string_with_regex",
+        "parameters": {
+            "source_string": "The cat sat on the mat with another cat",
+            "regex": "cat",
+            "replacement": "dog"
+        }
+    }
+]

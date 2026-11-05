@@ -14,6 +14,18 @@ dependencies = [
  "troch",
 ]
 
+[dependency-groups]
+dev = [
+    "flake8",
+    "mypy",
+]
+[tool.mypy]
+
+[[tool.mypy.overrides]]
+module = ["llm_sdk", "llm_sdk.*"]
+follow_imports = "skip"
+
+
 [project.scripts]
 call-me-maybe = "call_me_maybe:main"
 
