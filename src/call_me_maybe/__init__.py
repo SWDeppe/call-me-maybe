@@ -23,15 +23,32 @@ def select_function(
     """ " select one of the valide function"""
     # prepare a prompte
     new_prompt = "Available functions:\n"
-    new_prompt += "    0. No function matches\n"
+    new_prompt += "    0. No match\n"
     for i, func in enumerate(functions):
         new_prompt += f"    {i + 1}. {func.__repr__()}\n"
     new_prompt += f"Request: {prompt}"
+    new_prompt += "\nUsable function ?(true/false): "
+
+    bool_tokens: list[list[int]] = [
+        sdk.encode(token).squeeze(0).tolist() for token in ["true", "false"]
+    ]
+    logits = sdk.get_logits_from_input_ids(
+        sdk.encode(new_prompt).squeeze(0).tolist()
+    )
+    scores = [
+        logits[tokens[0]] for tokens in bool_tokens
+    ]
+    print(scores)
+    if scores[0] < scores[1] * 1.2:
+        return -1 
+
+
     new_prompt += "\n\nFunction Name: "
 
     functions_token: list[list[int]] = [
         sdk.encode(func.name).squeeze(0).tolist() for func in functions
     ]
+    # functions_token.append(sdk.encode("no_match").squeeze(0).tolist())
     i = 0
     function_name = ""
     # TODO: give a token of no choice that compeet with the function's names
@@ -42,7 +59,9 @@ def select_function(
         functions_tokens_scores = [
             logits[tokens[i]] for tokens in functions_token if len(tokens) > i
         ]
+        # print(f"none score: {functions_tokens_scores[-1]}")
         choice = np.argmax(functions_tokens_scores)
+        print(f"Token score: {functions_tokens_scores[choice]}")
         function_name += sdk.decode([functions_token[choice][i]])
         new_prompt += sdk.decode([functions_token[choice][i]])
         # define the remaning possible functions to choose
@@ -54,6 +73,8 @@ def select_function(
             break
         i += 1
 
+    # if function_name == "no_match":
+    #     return -1
     for i, func in enumerate(functions):
         if func.name == function_name:
             return i
@@ -120,9 +141,7 @@ def prompt_number(
             raise IndexError("all the candidates are not 1 token...")
         scores: list[float] = [logits[id[0]] for id in c_ids]
         if i == 0:
-            print(scores)
-            # scores[0] += 1
-            scores[0] *= 1 + nth_arg * 0.25
+            scores[0] *= 1 + nth_arg * 0.35
 
         choice = np.argmax(scores)
         if candidates[choice] == delim:
@@ -252,6 +271,11 @@ def call_me_maybe() -> None:
     prompts_selections: list[str] = []
     for prompt in prompts:
         func_i = select_function(prompt.prompt, my_functions, sdk)
+        if func_i == -1:
+            prompts_selections.append(prompt.prompt)
+            func_selections.append(Function("", "Empty function", "", {}))
+            args_selections.append({})
+            continue
         args = get_arguments(prompt.prompt, my_functions[func_i], sdk)
         print(f"{prompt.prompt}: {my_functions[func_i].name}(", end="")
         print(*args.values(), sep=", ", end="")

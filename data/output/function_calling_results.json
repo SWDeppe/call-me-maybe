@@ -8,6 +8,11 @@
         }
     },
     {
+        "prompt": "Draw a triangle",
+        "function": "",
+        "parameters": {}
+    },
+    {
         "prompt": "What is the sum of -2 and -3?",
         "function": "fn_add_numbers",
         "parameters": {
@@ -20,7 +25,7 @@
         "function": "fn_add_numbers",
         "parameters": {
             "a": -265.55,
-            "b": -79.89
+            "b": 79.89
         }
     },
     {
@@ -43,7 +48,7 @@
         "prompt": "Greet shrek",
         "function": "fn_greet",
         "parameters": {
-            "name": "shrek"
+            "name": "Shrek"
         }
     },
     {
